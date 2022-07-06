@@ -1,14 +1,14 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import Footer from '../Component/Footer'
+import React from "react";
+import { Outlet } from "react-router-dom";
+import Footer from "../Component/Footer";
 
 const FooterMain = () => {
   return (
     <>
-        <Outlet />
-        <Footer />
+      <Outlet />
+      <Footer />
     </>
-  )
-}
+  );
+};
 
-export default FooterMain
+export default FooterMain;
