@@ -1,12 +1,12 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 
 const Home = () => {
-  const navigate = useNavigate();
+  const history = useHistory();
 
   return (
     <>
@@ -15,7 +15,7 @@ const Home = () => {
           <h1>Welcome to Hospital</h1>
           <h2>We are team of talented doctors making websites with React</h2>
           <button
-            onClick={() => navigate("/about")}
+            onClick={() => history.push("/about")}
             className="btn-get-started scrollto border-0"
           >
             Get Started

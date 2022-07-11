@@ -42,32 +42,62 @@ const Header = () => {
             <nav id="navbar" className="navbar order-last order-lg-0">
               <ul>
                 <li>
-                  <NavLink className="nav-link scrollto" to="/">
+                  <NavLink
+                    exact
+                    activeClassName="active"
+                    className="nav-link scrollto"
+                    to="/"
+                  >
                     Home
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink className="nav-link scrollto" to="/departments">
+                  <NavLink
+                    exact
+                    activeClassName="active"
+                    className="nav-link scrollto"
+                    to="/departments"
+                  >
                     Departments
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink className="nav-link scrollto" to="/doctors">
+                  <NavLink
+                    exact
+                    activeClassName="active"
+                    className="nav-link scrollto"
+                    to="/doctors"
+                  >
                     Doctors
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink className="nav-link scrollto" to="/medicine">
+                  <NavLink
+                    exact
+                    activeClassName="active"
+                    className="nav-link scrollto"
+                    to="/medicine"
+                  >
                     Medicine
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink className="nav-link scrollto" to="/about">
+                  <NavLink
+                    exact
+                    activeClassName="active"
+                    className="nav-link scrollto"
+                    to="/about"
+                  >
                     About
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink className="nav-link scrollto" to="/contact">
+                  <NavLink
+                    exact
+                    activeClassName="active"
+                    className="nav-link scrollto"
+                    to="/contact"
+                  >
                     Contact
                   </NavLink>
                 </li>
@@ -76,12 +106,16 @@ const Header = () => {
             </nav>
             <NavLink
               to="/book-appointment"
+              exact
+              activeClassName="active"
               className="appointment-btn scrollto"
             >
               <span className="d-none d-md-inline">Make an</span> Appointment
             </NavLink>
             <NavLink
               to="/login"
+              exact
+              activeClassName="active"
               className="d-none d-md-inline appointment-btn scrollto"
             >
               <span>Login/ Signup</span>

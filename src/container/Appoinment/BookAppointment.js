@@ -1,10 +1,51 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import { Formik, Form, useFormik } from "formik";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
-const BookAppointment = () => {
-  const navigate = useNavigate();
+const BookAppointment = (props) => {
+  const history = useHistory();
+  const [update, setUpdate] = useState(false);
+
+  useEffect(() => {
+    let localData = JSON.parse(localStorage.getItem("appointment"));
+
+    if (props.location.state && localData) {
+      let fData = localData.filter((v) => v.id === props.location.state.id);
+
+      setValues(fData[0]);
+      setUpdate(true);
+    }
+  }, []);
+
+  const handleInsert = (values) => {
+    let localData = JSON.parse(localStorage.getItem("appointment"));
+    let data = { id: new Date().getTime().toString(), ...values };
+
+    if (localData) {
+      localData.push(data);
+      localStorage.setItem("appointment", JSON.stringify(localData));
+    } else {
+      localStorage.setItem("appointment", JSON.stringify([data]));
+    }
+  };
+
+  const handleUpdate = (values) => {
+    let localData = JSON.parse(localStorage.getItem("appointment"));
+    const updateData = localData.map((v) => {
+      if (v.id === values.id) {
+        return values;
+      } else {
+        return v;
+      }
+    });
+
+    localStorage.setItem("appointment", JSON.stringify(updateData));
+    resetForm();
+    setUpdate(false);
+    history.push("/list-appointment");
+    history.replace();
+  };
 
   let schema = yup.object().shape({
     name: yup.string().required("Please Enter Name"),
@@ -34,7 +75,12 @@ const BookAppointment = () => {
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      navigate("/list-appointment");
+      if (update) {
+        handleUpdate(values);
+      } else {
+        handleInsert(values);
+      }
+      history.push("/list-appointment");
     },
   });
 
@@ -43,11 +89,12 @@ const BookAppointment = () => {
     handleBlur,
     handleChange,
     handleReset,
+    resetForm,
+    setValues,
     values,
     errors,
     touched,
   } = formik;
-
   return (
     <>
       <section id="appointment" className="appointment section-bg">
@@ -190,7 +237,11 @@ const BookAppointment = () => {
                 </div>
               </div>
               <div className="text-center">
-                <button type="submit">Make an Appointment</button>
+                {update ? (
+                  <button type="submit">update an Appointment</button>
+                ) : (
+                  <button type="submit">Make an Appointment</button>
+                )}
                 <button type="reset">Reset</button>
               </div>
             </Form>
