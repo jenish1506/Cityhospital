@@ -43,7 +43,6 @@ const BookAppointment = (props) => {
     localStorage.setItem("appointment", JSON.stringify(updateData));
     resetForm();
     setUpdate(false);
-    history.push("/list-appointment");
     history.replace();
   };
 

@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Container, Row, Col, FormGroup, Button } from "reactstrap";
 import * as yup from "yup";
 import { Formik, Form, useFormik, Field } from "formik";
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
   const [userType, setUserType] = useState("Login");
   const [reset, setReset] = useState(false);
+  const history = useHistory()
 
   let schemaObj, initVal;
   if (reset) {
@@ -50,11 +52,31 @@ const Login = () => {
 
   let schema = yup.object().shape(schemaObj);
 
+  const handleLogin = () => {
+    localStorage.setItem("user", 123);
+  };
+
+  const insertData = (val) => {
+    let localData = JSON.parse(localStorage.getItem("user"));
+
+    if (localData) {
+      localData.push(val);
+      localStorage.setItem("user", JSON.stringify(localData));
+    } else {
+      localStorage.setItem("user", JSON.stringify([val]));
+    }
+  };
+
   const formik = useFormik({
     initialValues: initVal,
     validationSchema: schema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      if (userType === "Login") {
+        handleLogin();
+        history.push("/");
+      } else {
+        insertData(values);
+      }
     },
     enableReinitialize: true,
   });
